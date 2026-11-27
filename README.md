@@ -24,8 +24,9 @@ The system executes a sequential 4-agent workflow:
 
 ## Features
 
+- **Interactive Streamlit Web UI:** Modern browser dashboard with live agent progress tracking, KPI metrics, tabbed findings, and one-click Markdown downloads.
 - **Multi-Model Fallback:** Automatically cascades through Gemini models (`gemini-3.5-flash-lite` → `gemini-3.8-flash` → `gemini-3.1-flash-lite` → `gemini-3.7-flash`) to prevent 429 quota exhaustion and 503 service downtime.
-- **Rich Terminal UI:** Formatted progress spinners, status banners, and rendered Markdown output panels.
+- **Rich Terminal UI:** Formatted progress spinners, status banners, and rendered Markdown output panels for CLI users.
 - **Clean Output Filtering:** Automatically strips metadata, cryptographic signatures, and token-heavy wrappers.
 
 ## Setup
@@ -49,7 +50,20 @@ The system executes a sequential 4-agent workflow:
 
 ## Usage
 
-Run the interactive CLI:
+### 1. Launch the Streamlit Web Application (Recommended)
+
+Start the interactive web dashboard in your browser:
+
+```bash
+uv run streamlit run app.py
+```
+
+*Or via the registered entry point:*
+```bash
+uv run multi-agent-system-ui
+```
+
+### 2. Run the Interactive Terminal CLI
 
 ```bash
 uv run multi-agent-system

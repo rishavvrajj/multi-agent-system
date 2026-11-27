@@ -17,10 +17,12 @@ dependencies = [
     "requests>=2.31.0",
     "python-dotenv>=1.0.0",
     "rich>=13.7.0",
+    "streamlit>=1.35.0",
 ]
 
 [project.scripts]
 multi-agent-system = "multi_agent_system:main"
+multi-agent-system-ui = "multi_agent_system.ui:main"
 
 [build-system]
 requires = ["uv_build>=0.13.7,<0.14.0"]

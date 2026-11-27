@@ -57,9 +57,9 @@ def extract_text(content) -> str:
     return str(content)
 
 
-def build_search_agent():
+def build_search_agent(custom_llm=None):
     return create_agent(
-        model=llm,
+        model=custom_llm or llm,
         tools=[web_search],
         system_prompt=(
             "You are a skilled web research agent. When given a topic, you MUST ALWAYS use the "
@@ -69,9 +69,9 @@ def build_search_agent():
     )
 
 
-def build_reader_agent():
+def build_reader_agent(custom_llm=None):
     return create_agent(
-        model=llm,
+        model=custom_llm or llm,
         tools=[scrape_url],
         system_prompt=(
             "You are a reading and scraping agent. Review the provided search results, select the most relevant "
@@ -99,7 +99,12 @@ Structure the report as:
 Be detailed, factual and professional."""),
 ])
 
-writer_chain = writer_prompt | llm | StrOutputParser()
+
+def get_writer_chain(custom_llm=None):
+    return writer_prompt | (custom_llm or llm) | StrOutputParser()
+
+
+writer_chain = get_writer_chain()
 
 critic_prompt = ChatPromptTemplate.from_messages([
     ("system", "You are a sharp and constructive research critic. Be honest and specific."),
@@ -123,4 +128,9 @@ One line verdict:
 ..."""),
 ])
 
-critic_chain = critic_prompt | llm | StrOutputParser()
+
+def get_critic_chain(custom_llm=None):
+    return critic_prompt | (custom_llm or llm) | StrOutputParser()
+
+
+critic_chain = get_critic_chain()
